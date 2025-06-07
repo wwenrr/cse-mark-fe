@@ -382,13 +382,49 @@ const mockMessages = [
     id: '2',
     type: 'bot',
     data: {
-      semester: 'HK1 2024-2025',
-      subjects: [
-        { code: 'CS101', name: 'Lập trình cơ bản', grade: 8.5, credits: 3 },
-        { code: 'MA101', name: 'Toán cao cấp', grade: 7.8, credits: 4 },
-        { code: 'EN101', name: 'Tiếng Anh', grade: 8.2, credits: 2 }
-      ],
-      gpa: 8.1
+    "_id": "2312376",
+    "a": {
+      "Họ": "PHAN CHÂU",
+      "Tên": "NGUYÊN"
+    },
+    "b": {
+      "TongKet-Raw-BT": "9.8",
+      "test1-oop": "10.0",
+      "test2-fp": "10.0",
+      "test3-fp": "9.8",
+      "test4-fp": "9.7"
+    },
+    "c": {
+      "asm-1": "1",
+      "asm-1-0603": "",
+      "asm-2": "1",
+      "asm-2-0601": "",
+      "asm-3": "1"
+    },
+    "d": {
+      "TongKet-Raw-BTL": "9.52",
+      "TongKet-Raw-BTL-0603": "9.52",
+      "asm-1-harmony": "8.57",
+      "asm-1-harmony-0603": "8.57",
+      "asm-2-harmony": "10.00",
+      "asm-2-harmony-0601": "10.00",
+      "asm-3-harmony": "10.00"
+    },
+    "e": {
+      "thi-raw": "8.16",
+      "thi-raw-v2": "8.31"
+    },
+    "f": {
+      "Real-BT": "10.0",
+      "Real-BTL": "9.50",
+      "Real-Thi": "8.50",
+      "Submit-BTL-0603": "9.50"
+    },
+    "g": {
+      "DuKienTongKet": "8.95",
+      "Submit-Tongket-0603": "8.95"
+    },
+    "id": "2312376"
     }
   },
   {

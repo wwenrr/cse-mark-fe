@@ -1,0 +1,11 @@
+{
+    "mock": {
+        "title": "Thử nghiệm",
+        "description": "Truy cập phiên bản thử nghiệm không cần đăng nhập Google."
+    },
+    "login": {
+        "title": "Trợ lý ảo tra cứu điểm số và thông tin học tập",
+        "button": "Đăng nhập với Google",
+        "note": "Sử dụng tài khoản Google để đăng nhập."
+    }
+}

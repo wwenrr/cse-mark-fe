@@ -1,0 +1,11 @@
+{
+    "mock": {
+        "title": "Trial",
+        "description": "Access the trial version without Google login."
+    },
+    "login": {
+        "title": "Virtual assistant for checking grades and academic information",
+        "button": "Sign in with Google",
+        "note": "Use your Google account to sign in."
+    }
+}

@@ -8,12 +8,12 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   plugins: [
     react(),
-    // VitePWA({
-    //   registerType: 'autoUpdate',
-    //   devOptions: {
-    //     enabled: false,
-    //   },
-    // }),
+    VitePWA({
+      registerType: 'autoUpdate',
+      devOptions: {
+        enabled: false,
+      },
+    }),
     tsconfigPaths(),
   ],
 

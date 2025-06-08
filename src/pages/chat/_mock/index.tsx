@@ -1,6 +1,5 @@
 import Header from '@/pages/chat/components/header'
 import React, { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid';
 import LeftSidebar from '@/pages/chat/components/left-sidebar';
 import ChatMessage from '@/pages/chat/components/chat-message';
 import InputContainer from '@/pages/chat/components/input-container';
@@ -100,7 +99,6 @@ const styles = {
 } as const
 
 export default function MockChat() {
-  const [inputValue, setInputValue] = useState('')
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768)
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const messagesEndRef = React.useRef<HTMLDivElement>(null)
@@ -123,23 +121,6 @@ export default function MockChat() {
 
   const closeSidebar = () => {
     setSidebarOpen(false)
-  }
-  const handleSendMessage = () => {
-    const myUUID = uuidv4();
-    console.log(myUUID);
-    console.log('Send message:', inputValue)
-    setInputValue('')
-    // Scroll to bottom after sending message
-    setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-    }, 100)
-  }
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      handleSendMessage()
-    }
   }
 
   return (

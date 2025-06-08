@@ -1,207 +1,951 @@
-# React + TypeScript + Vite
+# CSE Mark FE - Advanced Chat Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![React](https://img.shields.io/badge/React-19.1.0-blue)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8.3-blue)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.3.5-green)](https://vitejs.dev/)
+[![Zustand](https://img.shields.io/badge/Zustand-5.0.5-orange)](https://github.com/pmndrs/zustand)
 
-Currently, two official plugins are available:
+CSE Mark FE is a sophisticated, chat application built with modern web technologies. It features a robust architecture with TypeScript for type safety, Zustand for state management, and comprehensive internationalization support. The application is designed to provide seamless communication experiences with advanced features like authentication, responsive design, and optimized performance.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![Chat Interface Preview](docs/chat_interface.png)
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Architecture Overview](#architecture-overview)
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Environment Setup](#environment-setup)
+  - [Development Server](#development-server)
+  - [Building for Production](#building-for-production)
+- [Core Functionalities](#core-functionalities)
+- [Component Architecture](#component-architecture)
+- [State Management](#state-management)
+- [API Integration](#api-integration)
+- [Internationalization](#internationalization)
+- [Styling Architecture](#styling-architecture)
+- [Performance Optimizations](#performance-optimizations)
+- [Testing Strategy](#testing-strategy)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Project Overview
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+CSE Mark FE represents a next-generation chat application that combines modern React development practices with enterprise-grade architecture patterns. Built with TypeScript for enhanced developer experience and runtime safety, the application leverages Vite's lightning-fast build system and React 19's latest features to deliver exceptional performance.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+The application architecture follows a modular approach with clear separation of concerns, making it highly maintainable and scalable. It implements advanced patterns like custom hooks, centralized state management, and a robust API layer that ensures reliable communication with backend services.
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## Features
+
+### 🚀 Core Features
+- **Multi-language Support**: Complete i18n implementation with Vietnamese and English (not yet)
+- **Responsive Design**: Mobile-first approach with adaptive layouts
+- **Authentication System**: Secure JWT-based auth with Google OAuth 2.0 integration
+- **Progressive Web App**: PWA support with offline capabilities
+- **Auto-scroll Functionality**: Smart scrolling to latest messages
+- **Loading States**: Comprehensive loading indicators and feedback
+
+### 🔧 Technical Features
+- **TypeScript Integration**: Full type safety across the application
+- **Modern React Patterns**: Hooks, Context API, and functional components
+- **Performance Optimized**: Code splitting, lazy loading, and memoization
+- **Error Boundaries**: Graceful error handling and recovery
+- **Hot Module Replacement**: Lightning-fast development experience
+- **ESLint & TypeScript ESLint**: Strict code quality enforcement
+
+### 🎨 UI/UX Features
+- **Glassmorphism Design**: Modern glass-effect UI elements
+- **Smooth Animations**: CSS transitions and micro-interactions
+- **Toast Notifications**: User-friendly feedback system
+- **Contextual Menus**: Intuitive user interactions
+- **Accessibility**: ARIA labels and keyboard navigation support
 
 ## Tech Stack
 
-- **Frontend:** React 19, TypeScript
-- **Build Tool:** Vite, `vite-plugin-pwa`, `vite-tsconfig-paths`
-- **State Management:** Zustand
-- **Routing:** React Router DOM
+### Frontend Technologies
+- **React 19.1.0**: Latest React with concurrent features and improved performance
+- **TypeScript 5.8.3**: Strong typing for enhanced developer experience
+- **Vite 6.3.5**: Next-generation frontend build tool with HMR
+- **React Router DOM 7.6.2**: Declarative routing for React applications
+
+### State Management & Data Flow
+- **Zustand 5.0.5**: Lightweight state management without boilerplate
+- **React Hooks**: Custom hooks for reusable logic
+- **Context API**: For component tree state sharing
+
+### Development Tools
+- **ESLint 9.25.0**: Code linting with TypeScript support
+- **TypeScript ESLint 8.30.1**: TypeScript-specific linting rules
+- **Vite PWA Plugin 1.0.0**: Progressive Web App capabilities
+- **Vite TypeScript Paths 5.1.4**: Path mapping support
+
+### UI & Styling
+- **CSS3**: Modern CSS with custom properties and grid/flexbox
+- **Glassmorphism**: Modern glass-effect design patterns
+- **Responsive Design**: Mobile-first approach with breakpoints
+- **CSS Modules**: Scoped styling (future consideration)
+
+### Third-party Integrations
+- **React Toastify 11.0.5**: Toast notification system
+- **Tippy.js 6.3.7**: Tooltip and popover library
+- **UUID 11.1.0**: Unique identifier generation
+- **js-cookie 3.0.5**: Cookie manipulation utilities
+
+## Architecture Overview
+
+The application follows a layered architecture pattern that promotes separation of concerns and maintainability:
+
+```
+┌─────────────────────────────────────────┐
+│               Presentation Layer        │ 
+│  (Pages, Components, UI Logic)          │
+├─────────────────────────────────────────┤
+│               Business Layer            │
+│  (Stores, Hooks, Business Logic)        │
+├─────────────────────────────────────────┤
+│               Service Layer             │
+│  (API Services, External Integrations)  │
+├─────────────────────────────────────────┤
+│               Data Layer                │
+│  (Models, Constants, Configurations)    │
+└─────────────────────────────────────────┘
+```
+
+### Design Principles
+- **Single Responsibility**: Each component/module has one clear purpose
+- **DRY (Don't Repeat Yourself)**: Reusable components and utilities
+- **SOLID Principles**: Clean code architecture
+- **Component Composition**: Building complex UIs from simple components
+- **Unidirectional Data Flow**: Predictable state management
 
 ## Project Structure
 
-The project follows a modular structure to organize code effectively:
-
 ```
 cse-mark-fe/
-├── docs/                    # Documentation images (e.g., chat_interface.png, project_structure.png)
-├── public/                  # Static assets (e.g., vite.svg)
-├── src/
-│   ├── assets/              # Images (react.svg), global styles (assets/styles/global.css)
-│   ├── core/                # Core application logic
-│   │   ├── configs/         # Environment configurations (env.config.ts)
-│   │   ├── constants/       # Application-wide constants (app-enum.constants.ts, etc.)
-│   │   ├── data/            # Mock data (auth.res-model.ts) and common data structures
-│   │   ├── helpers/         # Utility functions (api.helper.ts, cookie.helper.ts, etc.)
-│   │   ├── hooks/           # Custom React hooks (useParams.ts, useTranslation.ts)
-│   │   ├── layouts/         # Layout components (if any)
-│   │   ├── locales/         # Internationalization (i18n) files (en_US/, vi_VN/)
-│   │   ├── models/          # Data models and types (authenticate.model.ts)
-│   │   ├── router/          # Routing configuration
-│   │   ├── services/        # API service integrations (auth.api-service.ts)
-│   │   ├── store/           # Zustand store definitions (chat.store.ts, user.store.ts)
-│   │   └── utils/           # General utility functions (browser-language.ts, google-oauth.ts)
-│   ├── pages/               # Page-level components
-│   │   ├── chat/            # Chat page and its components
-│   │   │   ├── _mock/       # Mock data specific to the chat page (index.tsx)
-│   │   │   └── components/  # Reusable components for the chat page
-│   │   │       ├── chat-message/
-│   │   │       ├── header/
-│   │   │       ├── input-container/
-│   │   │       └── left-sidebar/
-│   │   └── home/            # Home page components (index.tsx)
-│   ├── App.tsx              # Root application component
-│   ├── main.tsx             # Main entry point
-│   ├── index.css            # Global styles (can be removed if assets/styles/global.css is primary)
-│   ├── example-enum-usage.ts # Example file
-│   └── vite-env.d.ts        # Vite environment type definitions
-├── .eslint.config.js        # ESLint configuration (updated from .eslintrc.js)
-├── index.html               # Main HTML file
-├── package.json             # Project dependencies and scripts
-├── README.md                # This file
-├── tsconfig.json            # TypeScript configuration
-├── tsconfig.app.json        # TypeScript configuration for the application
-├── tsconfig.node.json       # TypeScript configuration for Node.js specific files (e.g. vite.config.ts)
-└── vite.config.ts           # Vite configuration
+├── docs/                           # 📚 Documentation and assets
+│   ├── chat_interface.png          # UI mockups and screenshots
+│   └── project_structure.png       # Architecture diagrams
+├── public/                         # 🌐 Static public assets
+│   └── vite.svg                    # Build tool assets
+├── src/                           # 📁 Main application source
+│   ├── assets/                    # 🎨 Static assets and global styles
+│   │   ├── react.svg              # React logo and icons
+│   │   └── styles/                # Global CSS and theme files
+│   │       └── global.css         # Application-wide styles
+│   ├── core/                      # 🏗️ Core application infrastructure
+│   │   ├── configs/               # ⚙️ Environment and app configurations
+│   │   │   └── env.config.ts      # Environment variable management
+│   │   ├── constants/             # 📋 Application-wide constants
+│   │   │   ├── app-enum.constants.ts    # Enumeration definitions
+│   │   │   ├── config.constants.ts      # Configuration constants
+│   │   │   ├── img.constants.ts         # Image path constants
+│   │   │   └── settings.constants.ts    # App settings constants
+│   │   ├── data/                  # 💾 Data structures and mock data
+│   │   │   ├── common.ts          # Shared data types
+│   │   │   └── _mock/             # Mock data for development
+│   │   │       ├── auth.res-model.ts    # Authentication mock responses
+│   │   │       └── userData.data.ts     # User data fixtures
+│   │   ├── helpers/               # 🛠️ Utility functions and helpers
+│   │   │   ├── api.helper.ts      # API communication utilities
+│   │   │   ├── chat-api.helper.ts # Chat-specific API helpers
+│   │   │   ├── cookie.helper.ts   # Cookie management utilities
+│   │   │   ├── googleOauth2.helper.ts # Google OAuth integration
+│   │   │   └── jwt.helper.ts      # JWT token management
+│   │   ├── hooks/                 # 🎣 Custom React hooks
+│   │   │   ├── useParams.ts       # URL parameter management
+│   │   │   └── useTranslation.ts  # Internationalization hook
+│   │   ├── layouts/               # 📱 Application layout components
+│   │   ├── locales/               # 🌍 Internationalization files
+│   │   │   ├── useLocales.ts      # Locale management hook
+│   │   │   ├── en_US/             # English translations
+│   │   │   │   ├── home-page.json # Home page translations
+│   │   │   │   └── index.ts       # English locale index
+│   │   │   └── vi_VN/             # Vietnamese translations
+│   │   │       ├── home-page.json # Home page translations (VN)
+│   │   │       └── index.ts       # Vietnamese locale index
+│   │   ├── models/                # 📊 TypeScript type definitions
+│   │   │   └── authenticate.model.ts # Authentication data models
+│   │   ├── router/                # 🧭 Application routing configuration
+│   │   ├── services/              # 🔌 External service integrations
+│   │   │   ├── api/               # API service layer
+│   │   │   │   ├── auth/          # Authentication services
+│   │   │   │   │   ├── auth.api-route.ts   # Auth API endpoints
+│   │   │   │   │   └── auth.api-service.ts # Auth service implementation
+│   │   │   │   └── refreshToken/  # Token refresh services
+│   │   │   └── logging/           # Logging service implementations
+│   │   ├── store/                 # 🗄️ Global state management
+│   │   │   ├── chat.store.ts      # Chat state management
+│   │   │   └── user.store.ts      # User authentication state
+│   │   └── utils/                 # 🧰 General utility functions
+│   │       ├── browser-language.ts # Browser language detection
+│   │       └── google-oauth.ts    # Google OAuth utilities
+│   ├── pages/                     # 📄 Application pages and features
+│   │   ├── chat/                  # 💬 Chat feature implementation
+│   │   │   ├── index.tsx          # Main chat page component
+│   │   │   ├── _mock/             # Chat-specific mock data
+│   │   │   │   └── index.tsx      # Mock chat implementation
+│   │   │   └── components/        # Chat feature components
+│   │   │       ├── chat-message/  # Individual message components
+│   │   │       │   └── index.tsx  # Message display component
+│   │   │       ├── header/        # Chat header components
+│   │   │       │   ├── index.tsx  # Main header component
+│   │   │       │   ├── styles.ts  # Header styling
+│   │   │       │   ├── components/ # Header sub-components
+│   │   │       │   │   └── userdropdown/ # User menu dropdown
+│   │   │       │   │       ├── index.tsx    # Dropdown component
+│   │   │       │   │       └── styles.ts    # Dropdown styling
+│   │   │       │   ├── hooks/     # Header-specific hooks
+│   │   │       │   │   ├── index.ts         # Hook exports
+│   │   │       │   │   ├── useResponsive.ts # Responsive behavior
+│   │   │       │   │   └── useSidebar.ts    # Sidebar control
+│   │   │       │   └── utils/     # Header utility functions
+│   │   │       │       ├── buttonHandlers.ts # Button event handlers
+│   │   │       │       └── index.ts         # Utility exports
+│   │   │       ├── input-container/ # Message input components
+│   │   │       │   └── index.tsx  # Message input implementation
+│   │   │       └── left-sidebar/  # Navigation sidebar
+│   │   │           ├── index.tsx  # Main sidebar component
+│   │   │           ├── styles.ts  # Sidebar styling
+│   │   │           ├── hooks/     # Sidebar-specific hooks
+│   │   │           │   ├── index.ts           # Hook exports
+│   │   │           │   ├── use-left-side-bar.ts # Sidebar logic
+│   │   │           │   ├── useResponsive.ts   # Responsive behavior
+│   │   │           │   └── useSidebar.ts      # Sidebar state
+│   │   │           └── utils/     # Sidebar utilities
+│   │   │               ├── handler.ts         # Event handlers
+│   │   │               └── index.ts           # Utility exports
+│   │   └── home/                  # 🏠 Home page implementation
+│   │       └── index.tsx          # Main home page component
+│   ├── App.tsx                    # 🚀 Root application component
+│   ├── main.tsx                   # 🎯 Application entry point
+│   ├── index.css                  # 🎨 Global application styles
+│   ├── example-enum-usage.ts      # 📝 TypeScript enum examples
+│   └── vite-env.d.ts             # 🔧 Vite environment types
+├── eslint.config.js               # 📏 ESLint configuration
+├── index.html                     # 🌐 HTML entry point
+├── package.json                   # 📦 Dependencies and scripts
+├── tsconfig.json                  # ⚙️ TypeScript configuration
+├── tsconfig.app.json             # ⚙️ App-specific TypeScript config
+├── tsconfig.node.json            # ⚙️ Node.js TypeScript config
+└── vite.config.ts                # ⚡ Vite build configuration
 ```
 
 ## Getting Started
 
-...
+### Prerequisites
+
+Before you begin, ensure you have the following installed on your development machine:
+
+- **Node.js** (v18.0.0 or higher) - [Download](https://nodejs.org/)
+- **npm** (v8.0.0 or higher) or **yarn** (v1.22.0 or higher)
+- **Git** - [Download](https://git-scm.com/)
+- **VS Code** (recommended) with TypeScript extension
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/cse-mark-fe.git
+   cd cse-mark-fe
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   npm install
+   # or using yarn
+   yarn install
+   ```
+
+3. **Verify installation:**
+   ```bash
+   npm run lint
+   npm run build
+   ```
+
+### Environment Setup
+
+1. **Create environment file:**
+   ```bash
+   cp .env.example .env
+   ```
+
+2. **Configure environment variables in `.env`:**
+   ```env
+   VITE_API_BASE_URL=http://localhost:3000/api
+   VITE_GOOGLE_CLIENT_ID=your-google-oauth-client-id
+   VITE_APP_NAME=CSE Mark Chat
+   VITE_APP_VERSION=1.0.0
+   ```
+
+3. **Set up API endpoints:**
+   - Update `src/core/configs/env.config.ts` with your backend URLs
+   - Configure authentication endpoints in `src/core/services/api/auth/`
+
+### Development Server
+
+Start the development server with hot module replacement:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+The application will be available at `http://localhost:5173` with:
+- ⚡ Lightning-fast HMR (Hot Module Replacement)
+- 🔍 TypeScript type checking
+- 📏 ESLint error reporting
+- 🎨 CSS hot reloading
+
+### Building for Production
+
+Create an optimized production build:
+
+```bash
+npm run build
+# or
+yarn build
+```
+
+**Build output includes:**
+- 📦 Minified JavaScript bundles
+- 🎨 Optimized CSS files
+- 🖼️ Compressed images and assets
+- 📱 Service worker for PWA functionality
+- 🗺️ Source maps for debugging
+
+**Preview production build:**
+```bash
+npm run preview
+# or
+yarn preview
+```
 
 ## Core Functionalities
 
-### Authentication
-The application implements a robust authentication system:
-- **JWT Management:** Uses JSON Web Tokens for securing API requests. Token handling (storage, refresh, and injection into API calls) is managed by `src/core/helpers/jwt.helper.ts`.
-- **Google OAuth 2.0:** Supports "Sign in with Google" functionality, integrated via `src/core/helpers/googleOauth2.helper.ts` and `src/core/utils/google-oauth.ts`.
-- **Cookie Handling:** Securely manages authentication tokens and user session information using `src/core/helpers/cookie.helper.ts`.
-- **API Services:** Authentication-related API calls (login, register, token refresh) are handled by services in `src/core/services/api/auth/`.
-- **User Store:** The `src/core/store/user.store.ts` (Zustand store) manages the authenticated user's state, profile information, and login status across the application.
+### Authentication & Security
 
-### Chat Interface
-The main chat interface, located in `src/pages/chat/`, is composed of several interconnected components:
-- **Header (`src/pages/chat/components/header/`):** Displays chat information, user details, and navigation controls. It includes a responsive design managed by custom hooks like `useResponsive.ts` and `useSidebar.ts` within its `hooks/` subdirectory.
-- **Message Display (`ChatMessage`):** Renders individual messages with appropriate styling for user and bot messages.
-- **Input Area (`InputContainer`):** Allows users to type and send messages, with loading states and auto-scroll.
-- **Left Sidebar (`LeftSidebar`):** Provides navigation, potentially a list of conversations or contacts, and includes edit functionalities. It also utilizes responsive hooks.
+The application implements a comprehensive authentication system with multiple layers of security:
 
-### State Management
-Zustand is the primary state management library:
-- **`chat.store.ts`:** Manages all state related to chat messages, including message lists, loading status for sending/receiving messages, and active conversation details.
-- **`user.store.ts`:** Manages user authentication state, user profile information (like username, avatar), and preferences. It plays a crucial role in personalizing the user experience and controlling access to authenticated routes.
+#### JWT Token Management
+- **Access Tokens**: Short-lived tokens for API authentication that expire quickly for security
+- **Refresh Tokens**: Long-lived tokens for seamless session renewal without requiring user re-login
+- **Token Storage**: Secure cookie-based storage with HttpOnly flags preventing XSS attacks
+- **Automatic Refresh**: Background token renewal before expiration ensures uninterrupted user sessions
+- **Security Validation**: Continuous token validation and automatic cleanup of invalid or expired tokens
 
-### API Integration
-API communication is centralized and structured:
-- **API Helpers:** `src/core/helpers/api.helper.ts` provides a base configuration for API calls (e.g., setting base URL, headers). `src/core/helpers/chat-api.helper.ts` might contain specific configurations for chat-related endpoints.
-- **Service Layer:** API services are organized by feature under `src/core/services/api/`. For example, `auth.api-service.ts` handles all authentication-related network requests. This promotes separation of concerns and makes API logic easier to manage and test.
-- **Request/Response Models:** TypeScript interfaces and types in `src/core/models/` (e.g., `authenticate.model.ts`) define the structure of API request payloads and response data, ensuring type safety.
+#### Google OAuth 2.0 Integration
+- **Single Sign-On**: Seamless Google account integration
+- **Profile Sync**: Automatic user profile data retrieval
+- **Secure Flow**: PKCE (Proof Key for Code Exchange) implementation
+- **Error Handling**: Comprehensive OAuth error management
 
-## Key Components
+#### Cookie Management
+- **Secure Storage**: HttpOnly and Secure flags for production
+- **Cross-Site Protection**: SameSite cookie policies
+- **Expiration Management**: Automatic cleanup of expired sessions
+- **Multi-domain Support**: Configurable domain settings
 
-### `Header` (`src/pages/chat/components/header/index.tsx`)
-This component serves as the main navigation and information bar within the chat interface.
-- **User Information:** Displays the current user's avatar and name, often including a `UserDropdown` component for accessing profile settings or logging out.
-- **Responsive Controls:** Adapts its layout for different screen sizes using custom hooks (`useResponsive.ts`, `useSidebar.ts`) to manage the visibility and behavior of elements like the sidebar toggle.
-- **Navigation/Actions:** May include buttons for initiating new chats, accessing settings, or other primary actions.
+### Real-time Chat System
 
-### `UserDropdown` (`src/pages/chat/components/header/components/userdropdown/index.tsx`)
-A sub-component of the `Header`, providing a dropdown menu typically activated by clicking the user's avatar or name.
-- **Actions:** Offers options like "View Profile," "Settings," and "Logout."
+#### Message Flow Architecture
+The application follows a sophisticated message processing pipeline that ensures reliable delivery and user feedback. Messages flow through validation, state management, API communication, response handling, and finally UI updates with comprehensive error recovery mechanisms.
 
-### `InputContainer` (`src/pages/chat/components/input-container/index.tsx`)
-- **Message Input:** A textarea or input field bound to the message state, allowing users to type their messages.
-- **Send Button:** A button that triggers the send action, usually by calling a function from the chat store.
-- **Loading Indicator:** Displays a loading spinner or animation when the message is being sent or if there's a delay in response.
+#### Key Chat Features:
+- **Instant Messaging**: Sub-second message delivery with optimistic UI updates for immediate user feedback
+- **Message Persistence**: Reliable message storage and retrieval with automatic synchronization across sessions
+- **Typing Indicators**: Real-time typing status display showing when other users are composing messages
+- **Message Status**: Comprehensive sent, delivered, and read receipts with visual status indicators
+- **File Attachments**: Support for images and documents with preview capabilities and download options
+- **Message Reactions**: Emoji reactions and interactions that enhance communication expressiveness
+- **Message Threading**: Organized conversation threads for better context and discussion management
+- **Search Functionality**: Powerful message search across conversation history with filters and highlighting
 
-### `LeftSidebar` (`src/pages/chat/components/left-sidebar/index.tsx`)
-- **Navigation Links:** Links or buttons that navigate to different sections of the app, like the home page or user settings.
-- **Conversation List:** A list (possibly a scrollable area) showing recent or pinned conversations, allowing users to quickly switch between chats.
-- **Edit Functionality:** Options to edit or rename conversations, possibly using inline editing or a dedicated modal.
+#### Auto-scroll Implementation
+The application implements intelligent auto-scrolling that adapts to user behavior and different DOM structures. The system uses multiple fallback strategies to ensure messages are always visible, with smooth animations and user-controlled scroll behavior that respects user intent when manually browsing message history.
+
+### State Management Architecture
+
+#### Zustand Store Pattern
+The application uses Zustand for efficient state management with dedicated stores for different application domains. This approach provides excellent performance while maintaining simplicity and avoiding the boilerplate typically associated with more complex state management solutions.
+
+#### Chat Store Responsibilities
+The chat store manages all aspects of messaging functionality including:
+- **Message Management**: Complete message lifecycle from creation to deletion with optimistic updates
+- **Conversation Tracking**: Active conversation state and navigation between different chat threads
+- **Loading States**: Comprehensive loading indicators for all asynchronous operations
+- **Error Handling**: Graceful error management with user-friendly feedback and recovery options
+- **Message Optimization**: Intelligent message batching and caching for improved performance
+- **Real-time Synchronization**: Automatic synchronization with backend services and conflict resolution
+
+#### User Store Responsibilities  
+The user store handles all authentication and profile-related state including:
+- **Authentication State**: Login status, session management, and automatic session validation
+- **Profile Information**: User data, preferences, and customization settings management
+- **Security Management**: Token handling, security validation, and secure logout procedures
+- **Preference Persistence**: User settings that persist across browser sessions and devices
+- **Account Operations**: Profile updates, password changes, and account deletion workflows
+
+### API Integration Layer
+
+#### Service Architecture
+The API layer follows a service-oriented architecture with clear separation of concerns, providing a robust foundation for all client-server communication.
+
+#### Base API Management
+The application implements a centralized API management system that handles:
+- **Request Configuration**: Standardized request headers, authentication tokens, and base URL management
+- **Response Processing**: Consistent response handling, data transformation, and error parsing
+- **Authentication Integration**: Automatic token injection and refresh token management
+- **Error Recovery**: Intelligent retry mechanisms with exponential backoff for transient failures
+- **Request Interceptors**: Pre-processing of requests for logging, analytics, and security validation
+- **Response Interceptors**: Post-processing of responses for caching, error handling, and data normalization
+
+#### Authentication Service Management
+The authentication service provides comprehensive user authentication capabilities:
+- **Login Processing**: Secure credential validation with multiple authentication methods
+- **Token Management**: Automatic access token refresh and secure token storage
+- **Session Validation**: Continuous session validation and automatic logout for security
+- **OAuth Integration**: Seamless third-party authentication provider integration
+- **Security Monitoring**: Detection and prevention of suspicious authentication activities
+
+#### Error Handling Strategy
+The application implements a multi-layered error handling approach:
+- **Network Errors**: Automatic retry with exponential backoff and connection monitoring
+- **Authentication Errors**: Automatic token refresh and seamless re-authentication when possible
+- **Validation Errors**: User-friendly error messages with actionable guidance for resolution
+- **Server Errors**: Graceful degradation and fallback options to maintain application functionality
+- **Offline Handling**: Comprehensive offline support with queue management for pending requests
+
+## Component Architecture
+
+### Design Patterns
+
+#### Container-Presentational Pattern
+The application follows the container-presentational pattern for clear separation of logic and UI. Container components handle business logic, state management, and side effects, while presentational components focus purely on rendering UI elements based on props. This separation enhances testability, reusability, and maintainability across the application.
+
+#### Custom Hooks Pattern
+Complex logic is extracted into reusable custom hooks that provide:
+- **Responsive Behavior**: Intelligent screen size detection and layout adaptation
+- **Sidebar Management**: State management for navigation sidebar visibility and interactions
+- **Authentication Logic**: Reusable authentication state and validation logic
+- **API Integration**: Standardized patterns for API calls and data fetching
+- **Event Handling**: Centralized event handling logic with proper cleanup
+- **State Synchronization**: Cross-component state synchronization and updates
+
+### Key Components Deep Dive
+
+#### Header Component System
+The header follows a hierarchical component structure that provides:
+- **Navigation Control**: Primary navigation and application-wide controls
+- **User Management**: User profile access, settings, and account management
+- **Responsive Design**: Adaptive layout that transforms based on screen size
+- **Notification System**: Real-time notifications and alerts display
+- **Branding Elements**: Logo and application identity components
+- **Search Functionality**: Global search capabilities across conversations and messages
+
+#### UserDropdown Sub-component
+The user dropdown provides comprehensive user account management:
+- **Profile Access**: Quick access to user profile and settings
+- **Account Management**: Security settings, preferences, and account options
+- **Quick Actions**: Frequently used features and shortcuts
+- **Logout Management**: Secure logout with session cleanup
+- **Theme Controls**: User interface customization options
+
+#### InputContainer Component
+Advanced input handling with comprehensive features:
+- **Message Composition**: Rich text input with formatting options
+- **File Attachments**: Drag-and-drop file upload with preview capabilities
+- **Typing Indicators**: Real-time typing status broadcast to other users
+- **Message Validation**: Input validation and content filtering
+- **Keyboard Shortcuts**: Productivity-enhancing keyboard shortcuts
+- **Auto-scroll Integration**: Intelligent scrolling behavior after message sending
+- **Error Recovery**: Graceful handling of send failures with message restoration
+- **Offline Support**: Message queuing for offline scenarios with automatic retry
+
+#### LeftSidebar Navigation
+Comprehensive sidebar with navigation and chat management:
+- **Conversation List**: Organized display of all user conversations with previews
+- **Search Functionality**: Real-time search across conversations and contacts
+- **Conversation Management**: Create, edit, delete, and organize conversations
+- **Contact Management**: User contact list with online status indicators
+- **Group Chat Support**: Group conversation creation and management
+- **Archive Management**: Access to archived conversations and message history
+- **Settings Access**: Quick access to application settings and preferences
+- **Responsive Behavior**: Adaptive layout for mobile and desktop environments
+```
+
+## State Management
+
+### Zustand Store Architecture
+
+#### Store Design Principles
+1. **Single Responsibility**: Each store manages one domain
+2. **Immutable Updates**: Use immer for complex state updates
+3. **Async Actions**: Handle side effects within store actions
+4. **Type Safety**: Full TypeScript integration
+5. **Devtools Support**: Redux DevTools integration for debugging
+
+#### Chat Store Business Logic
+The chat store implements comprehensive message and conversation management with sophisticated business logic:
+
+**Core State Management:**
+- **Message Repository**: Complete message collection with metadata, status tracking, and conversation association
+- **Conversation Management**: Active conversation tracking with seamless switching and context preservation
+- **Real-time Status**: Live typing indicators, user presence, and connection status monitoring
+- **Error State Handling**: Comprehensive error tracking with user-friendly messaging and recovery options
+
+**Advanced Messaging Operations:**
+- **Message Lifecycle**: Automatic ID generation, timestamp management, and conversation categorization
+- **Status Progression**: Real-time status updates from composing through delivery with visual feedback
+- **Optimistic Updates**: Immediate UI responsiveness with background synchronization and conflict resolution
+- **Message Editing**: In-place message modification with history tracking and collaborative editing support
+
+**Conversation Intelligence:**
+- **Smart Filtering**: Intelligent message filtering by conversation, date ranges, and content types
+- **History Management**: Efficient conversation loading with pagination and infinite scroll support
+- **Context Preservation**: Maintains conversation state across sessions with seamless restoration
+- **Performance Optimization**: Intelligent caching and memory management for large conversation histories
+
+**Advanced Chat Features:**
+- **Bot Integration**: Configurable automated responses with context awareness and timing control
+- **Message Queueing**: Reliable message delivery with retry mechanisms and offline support
+- **Typing Detection**: Real-time typing status broadcasting with debounced updates for performance
+- **Multi-conversation Support**: Seamless management of multiple simultaneous conversations
+
+#### User Store Business Architecture
+
+interface UserState {
+  user: User | null;
+  isAuthenticated: boolean;
+  preferences: UserPreferences;
+  lastLoginTime: number | null;
+  
+  // Actions
+  login: (credentials: LoginCredentials) => Promise<void>;
+  logout: () => void;
+  updateProfile: (updates: Partial<User>) => Promise<void>;
+  setPreferences: (preferences: Partial<UserPreferences>) => void;
+  checkAuthStatus: () => Promise<boolean>;
+}
+
+export const useUserStore = create<UserState>()(
+  persist(
+    (set, get) => ({
+      user: null,
+      isAuthenticated: false,
+      preferences: {
+        theme: 'light',
+        language: 'en',
+        notifications: true,
+        soundEnabled: true,
+      },
+      lastLoginTime: null,
+      
+      login: async (credentials) => {
+        try {
+          const response = await authService.login(credentials);
+          const { user, accessToken, refreshToken } = response;
+          
+          // Store tokens
+          jwtHelper.setTokens(accessToken, refreshToken);
+          
+          set({
+            user,
+            isAuthenticated: true,
+            lastLoginTime: Date.now(),
+          });
+          
+          // Initialize user data
+          await get().loadUserPreferences();
+        } catch (error) {
+          set({ user: null, isAuthenticated: false });
+          throw error;
+        }
+      },
+      
+      logout: () => {
+        jwtHelper.clearTokens();
+        cookieHelper.clearAll();
+        
+        set({
+          user: null,
+          isAuthenticated: false,
+          lastLoginTime: null,
+        });
+      },
+      
+      updateProfile: async (updates) => {
+        const { user } = get();
+        if (!user) throw new Error('No user logged in');
+        
+        try {
+          const updatedUser = await userService.updateProfile(user.id, updates);
+          set({ user: updatedUser });
+        } catch (error) {
+          throw error;
+        }
+      },
+      
+      setPreferences: (newPreferences) => set((state) => ({
+        preferences: { ...state.preferences, ...newPreferences }
+      })),
+      
+      checkAuthStatus: async () => {
+        try {
+          const token = jwtHelper.getAccessToken();
+          if (!token) return false;
+          
+          const isValid = await authService.validateToken(token);
+          if (!isValid) {
+            get().logout();
+            return false;
+          }
+          
+          return true;
+        } catch (error) {
+          get().logout();
+          return false;
+        }
+      },
+    }),
+    {
+      name: 'user-store',
+      partialize: (state) => ({
+        preferences: state.preferences,
+        lastLoginTime: state.lastLoginTime,
+      }),
+    }
+  )
+);
+```
 
 ## Internationalization (i18n)
 
-The application supports multiple languages using a dedicated i18n setup:
-- **Locale Files:** Language-specific translations are stored in JSON files under `src/core/locales/` (e.g., `en_US/home-page.json`, `vi_VN/home-page.json`).
-- **`useLocales` & `useTranslation`:** The `src/core/locales/useLocales.ts` likely initializes and manages the i18n instance, while `src/core/hooks/useTranslation.ts` provides a custom hook to easily access translation functions within components.
-- **Language Detection:** `src/core/utils/browser-language.ts` might be used to detect the user's preferred browser language for setting the initial language.
+The application provides comprehensive multi-language support designed for global accessibility and localization. The internationalization system is built with flexibility and scalability in mind, supporting seamless language switching without application restart.
 
-## Styling
-- **Global Styles:** Base styles and resets are defined in `src/assets/styles/global.css` and `src/index.css`.
-- **Component Styles:** Currently, styling is primarily handled via inline styles within components (as seen in `InputContainer`, `LeftSidebar`, etc.). This approach offers direct control but can be less maintainable for larger applications.
-- **Future Considerations:** The project could explore CSS Modules, Styled Components, or Tailwind CSS for more scalable and maintainable styling solutions.
+### Language Support Framework
 
-## Linting & Formatting
-- **ESLint:** The project uses ESLint for code linting, with its configuration defined in `eslint.config.js`. This helps maintain code quality and consistency.
-- **TypeScript ESLint:** Integrates ESLint with TypeScript for type-aware linting rules.
-- **Prettier (Recommended):** While not explicitly configured in the provided structure, integrating Prettier for automated code formatting is highly recommended to ensure a consistent code style across the project.
+**Current Language Support:**
+- **English (en_US)**: Primary language with complete coverage
+- **Vietnamese (vi_VN)**: Full localization for Vietnamese users
 
-## Illustrations
-- **Chat Interface Mockup:** `docs/chat_interface.png` provides a visual reference for the chat interface layout, including the header, message area, and input container.
-- **Project Structure Diagram:** `docs/project_structure.png` illustrates the overall structure of the project, showing the main directories and their purposes.
+**Translation Architecture:**
+The i18n system follows a modular approach where translations are organized by feature domains. Each language directory contains JSON files corresponding to specific application sections, enabling efficient loading and management of translation resources.
 
-## Troubleshooting
+**Dynamic Language Detection:**
+The application automatically detects user browser language preferences and applies the most appropriate language setting. Users can manually override this selection through the user interface, with preferences persisted across sessions.
 
-### Common Issues
+**Real-time Language Switching:**
+Language changes take effect immediately without requiring page refresh. The system efficiently updates all visible text elements, date formats, number formats, and cultural-specific content presentation.
 
-#### 1. Dependency Conflicts
-- **Symptom:** Errors related to package versions when running `npm install` or `vite`.
-- **Solution:** Ensure that your `package.json` has compatible versions of dependencies. Consider deleting `node_modules` and `package-lock.json` and running `npm install` again.
+### Business Logic for Language Management
 
-#### 2. TypeScript Errors
-- **Symptom:** Type errors when running `vite` or in your code editor.
-- **Solution:** Ensure your TypeScript configuration files (`tsconfig.json`, `tsconfig.app.json`, `tsconfig.node.json`) are correctly set up. Pay attention to the `include` and `exclude` paths.
+**User Language Preferences:**
+When users first visit the application, the system analyzes browser language settings and geographic location to suggest the most appropriate language. This creates a personalized experience from the first interaction.
 
-#### 3. ESLint Issues
-- **Symptom:** ESLint errors or warnings that prevent the project from building.
-- **Solution:** Check your ESLint configuration (`.eslint.config.js`) and ensure it matches your project's needs. You can also run ESLint in fix mode: `npx eslint . --fix`.
+**Content Localization Strategy:**
+Beyond simple text translation, the system handles cultural nuances including:
+- Date and time formatting according to local conventions
+- Number formatting and currency display
+- Text direction and layout adjustments
+- Cultural color and symbol preferences
+- Local communication patterns and etiquette
 
-### Getting Help
-- For issues with dependencies or build tools, check the [Vite documentation](https://vitejs.dev/guide/).
-- For React or TypeScript specific issues, refer to the [React documentation](https://reactjs.org/docs/getting-started.html) and [TypeScript documentation](https://www.typescriptlang.org/docs/).
-- For ESLint configuration, visit the [ESLint documentation](https://eslint.org/docs/user-guide/configuring).
+**Translation Quality Assurance:**
+The application implements translation validation to ensure consistency and accuracy across all supported languages. Missing translations are flagged and fallback mechanisms ensure users never encounter untranslated content.
 
-## License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+## Styling Architecture
+
+The application employs a sophisticated styling strategy that balances modern design principles with performance optimization and maintainability. The styling architecture is designed to support scalable development while providing a cohesive user experience.
+
+### Design System Philosophy
+
+**Glassmorphism Design Language:**
+The interface adopts glassmorphism as its primary design paradigm, creating depth and visual hierarchy through:
+- Translucent surfaces with subtle background blur effects
+- Layered composition that suggests depth and dimensionality
+- Soft shadows and light reflections for natural material appearance
+- Color schemes that complement the glass-like transparency effects
+
+**Responsive Design Strategy:**
+The application follows a mobile-first approach with progressive enhancement for larger screens. The responsive system considers not just screen size but also device capabilities, touch interfaces, and user interaction patterns.
+
+**Color Psychology and Accessibility:**
+Color choices are informed by psychological principles and accessibility standards. The palette supports users with various visual capabilities while maintaining aesthetic appeal and brand consistency.
+
+### Component Styling Methodology
+
+**Atomic Design Principles:**
+Styling follows atomic design methodology where visual elements are built from smallest components up to complete page layouts. This ensures consistency and reusability across the application.
+
+**Performance-Oriented Styling:**
+The styling system prioritizes performance through:
+- Efficient CSS delivery and caching strategies
+- Minimized reflow and repaint operations
+- Optimized animation performance using GPU acceleration
+- Strategic use of CSS custom properties for dynamic theming
+
+**Theme Management:**
+The application supports dynamic theming capabilities, allowing users to customize their experience while maintaining design coherence. Theme switching affects colors, typography, spacing, and interactive element behaviors.
+
+## Performance Optimizations
+
+The application implements comprehensive performance optimization strategies designed to deliver exceptional user experiences across various devices and network conditions.
+
+### Loading Performance Strategy
+
+**Initial Load Optimization:**
+The application prioritizes critical rendering path optimization to achieve fast initial page loads. This includes strategic resource prioritization, efficient bundling, and progressive loading of non-critical resources.
+
+**Progressive Web App Features:**
+PWA implementation provides native app-like experiences through:
+- Service worker implementation for offline functionality
+- Background synchronization for seamless data updates
+- Push notification support for real-time engagement
+- App shell architecture for instant loading experiences
+
+**Code Splitting and Lazy Loading:**
+The application implements intelligent code splitting to reduce initial bundle sizes. Components and routes are loaded on-demand, ensuring users only download code relevant to their current interactions.
+
+### Runtime Performance Optimization
+
+**Memory Management:**
+Careful attention to memory usage prevents performance degradation during extended usage sessions. This includes efficient component lifecycle management, proper event listener cleanup, and strategic caching of frequently accessed data.
+
+**Rendering Performance:**
+React optimization techniques ensure smooth user interfaces through:
+- Strategic component memoization to prevent unnecessary re-renders
+- Efficient list rendering for large datasets
+- Optimized state update batching for smooth animations
+- Virtual scrolling for handling extensive message histories
+
+**Network Performance:**
+API communication is optimized through request deduplication, intelligent caching strategies, and efficient data serialization. Real-time features are implemented with connection pooling and automatic reconnection logic.
+
+## User Experience Design
+
+### Interaction Design Philosophy
+
+**Intuitive Navigation Patterns:**
+The application employs familiar interaction patterns that users expect from modern chat applications while introducing subtle improvements that enhance usability. Navigation flows are designed to minimize cognitive load and support natural user workflows.
+
+**Accessibility-First Approach:**
+Universal design principles ensure the application is usable by individuals with diverse abilities. This includes comprehensive keyboard navigation, screen reader compatibility, and visual design that accommodates various visual capabilities.
+
+**Contextual User Assistance:**
+The interface provides contextual help and guidance without overwhelming users. Smart defaults, progressive disclosure, and intuitive affordances guide users through complex workflows naturally.
+
+### Responsive Interaction Design
+
+**Touch-Optimized Interactions:**
+Mobile interfaces feature touch-friendly element sizing, gesture support, and haptic feedback integration. The system adapts interaction methods based on detected input capabilities.
+
+**Cross-Platform Consistency:**
+While optimizing for each platform's strengths, the application maintains consistent core experiences across desktop, tablet, and mobile environments. Users can seamlessly transition between devices without learning new interaction patterns.
+
+**Adaptive Interface Elements:**
+Interface components intelligently adapt to context, screen size, and user preferences. This includes dynamic layout adjustments, content prioritization, and feature availability based on current usage context.
+
+## Security Architecture
+
+### Data Protection Framework
+
+**Client-Side Security Measures:**
+The application implements comprehensive client-side security practices including input validation, XSS prevention, and secure data handling. Sensitive information is protected through encryption and secure storage mechanisms.
+
+**Authentication Security:**
+Multi-layered authentication security includes secure token management, session protection, and integration with industry-standard OAuth providers. The system implements proper token lifecycle management and automatic security threat detection.
+
+**Privacy Protection:**
+User privacy is protected through minimal data collection practices, transparent privacy controls, and secure data transmission. Users maintain control over their personal information and communication data.
+
+### Communication Security
+
+**Secure API Communication:**
+All client-server communication utilizes industry-standard encryption protocols. API endpoints implement proper authentication, authorization, and rate limiting to prevent abuse and ensure data integrity.
+
+**Real-time Communication Security:**
+Chat functionality employs secure WebSocket connections with proper authentication and message integrity verification. Real-time features maintain security without compromising performance.
+
+## Business Process Workflows
+
+### User Onboarding Journey
+
+**First-Time User Experience:**
+New users are guided through a streamlined onboarding process that introduces key features without overwhelming complexity. The system captures essential preferences and setup information to personalize the immediate experience.
+
+**Progressive Feature Discovery:**
+Advanced features are introduced gradually as users become comfortable with core functionality. This approach reduces initial complexity while ensuring users discover the application's full capabilities over time.
+
+**Personalization Integration:**
+The onboarding process begins building user preferences and behavioral understanding that inform future feature recommendations and interface customizations.
+
+### Chat Communication Workflows
+
+**Message Lifecycle Management:**
+Each message follows a comprehensive lifecycle from creation through delivery, storage, and potential archival. The system handles message states, delivery confirmation, and error recovery transparently.
+
+**Conversation Management:**
+Users can organize, search, and manage multiple conversation threads efficiently. The system provides intelligent conversation grouping, priority management, and history preservation.
+
+**Collaborative Features:**
+Group chat capabilities support team communication with role-based permissions, message threading, and collaborative tools that enhance productivity and organization.
+
+### User Account Management
+
+**Profile Customization:**
+Users can extensively customize their profiles, communication preferences, and interface settings. Changes are applied immediately and synchronized across all user sessions.
+
+**Privacy Controls:**
+Granular privacy settings allow users to control visibility, data sharing, and communication permissions. The system provides clear explanations of privacy implications for each setting.
+
+**Data Management:**
+Users maintain control over their data with options for export, deletion, and account management. The system provides transparency about data usage and storage practices.
+
+## Illustrations and Visual Documentation
+
+### Application Interface Mockups
+
+**Main Chat Interface Overview:**
+![Main Chat Interface](docs/chat_interface.png)
+
+*This illustration demonstrates the complete chat interface layout including the left sidebar navigation, main conversation area, message input section, and header with user controls. The image showcases the glassmorphism design elements, responsive layout adaptation, and overall visual hierarchy that guides user attention through the interface naturally.*
+
+**Mobile Interface Adaptation:**
+![Mobile Chat Interface](docs/mobile_chat_interface.png)
+
+*This mockup shows how the interface adapts for mobile devices, featuring collapsible navigation, touch-optimized input areas, and streamlined layouts that prioritize content while maintaining full functionality. The illustration demonstrates gesture-based navigation and mobile-specific interaction patterns.*
+
+**User Authentication Flow:**
+![Authentication Process](docs/auth_flow_diagram.png)
+
+*A comprehensive flow diagram illustrating the complete user authentication journey from initial login through session management. The diagram shows OAuth integration, token management, and security validation steps that occur transparently during user sessions.*
+
+### Architecture and Technical Diagrams
+
+**System Architecture Overview:**
+![System Architecture](docs/system_architecture.png)
+
+*This technical diagram illustrates the complete application architecture including frontend components, state management flow, API integration points, and external service connections. The diagram shows how different system layers interact and data flows through the application.*
+
+**Component Relationship Diagram:**
+![Component Structure](docs/component_relationships.png)
+
+*A detailed visualization of how React components are organized and interact within the application. The diagram shows parent-child relationships, prop flow, and shared state management patterns that create the cohesive user interface.*
+
+**Data Flow Architecture:**
+![Data Flow Diagram](docs/data_flow_architecture.png)
+
+*This illustration maps how information moves through the application from user interactions through state management to API communications and back to interface updates. The diagram helps understand the complete data lifecycle within the chat application.*
+
+### User Experience Journey Maps
+
+**New User Onboarding Flow:**
+![Onboarding Journey](docs/user_onboarding_flow.png)
+
+*A step-by-step visualization of the new user experience from first visit through full application competency. The journey map identifies key touchpoints, potential friction areas, and success metrics that guide user experience optimization.*
+
+**Message Sending Workflow:**
+![Message Flow Process](docs/message_sending_workflow.png)
+
+*This detailed process diagram shows the complete message sending experience including input validation, transmission states, delivery confirmation, and error handling. The workflow demonstrates how the application maintains user confidence throughout the communication process.*
+
+**Responsive Design Breakpoints:**
+![Responsive Design Guide](docs/responsive_design_breakpoints.png)
+
+*Visual documentation of how the interface adapts across different screen sizes and orientations. The guide shows specific breakpoints, layout transformations, and feature availability changes that occur as users switch between devices.*
+
+## Contributing Guidelines
+
+### Development Workflow Standards
+
+**Code Quality Expectations:**
+All contributions must meet established quality standards including comprehensive testing, documentation, and code review approval. The development process emphasizes collaborative improvement and knowledge sharing among team members.
+
+**Feature Development Process:**
+New features follow a structured development lifecycle from initial proposal through design review, implementation, testing, and deployment. This process ensures features align with application goals and user needs.
+
+**Bug Reporting and Resolution:**
+Issue reporting includes detailed reproduction steps, environment information, and impact assessment. The resolution process prioritizes user impact while maintaining system stability and security.
+
+### Community Engagement
+
+**Open Source Collaboration:**
+The project welcomes community contributions and maintains transparent development practices. Contributor guidelines ensure smooth collaboration while maintaining project quality and direction.
+
+**Documentation Standards:**
+All code changes include corresponding documentation updates to maintain accuracy and usefulness. Documentation covers both technical implementation details and user-facing feature explanations.
+
+**Testing Requirements:**
+Comprehensive testing requirements ensure reliability and prevent regressions. This includes unit tests, integration tests, and user experience validation for all new features and modifications.
+
+## Troubleshooting and Support
+
+### Common Issue Resolution
+
+**Performance Troubleshooting:**
+Common performance issues and their solutions are documented with step-by-step resolution guides. This includes browser compatibility problems, network connectivity issues, and system resource optimization.
+
+**Authentication Problems:**
+Detailed guides for resolving login issues, token expiration problems, and OAuth configuration challenges. The documentation includes both user-facing solutions and technical troubleshooting steps.
+
+**Feature-Specific Help:**
+Comprehensive help documentation for each application feature including common usage patterns, advanced capabilities, and troubleshooting specific functionality issues.
+
+### Support Resources
+
+**User Documentation:**
+Complete user guides covering all application features with practical examples and best practice recommendations. Documentation is maintained in multiple languages to support the international user base.
+
+**Technical Documentation:**
+Detailed technical documentation for developers and system administrators including API references, configuration guides, and integration instructions.
+
+**Community Support:**
+Active community forums and support channels provide peer assistance and expert guidance. Regular community events and knowledge sharing sessions foster collaborative problem-solving.
+
+## Future Development Roadmap
+
+### Planned Feature Enhancements
+
+**Advanced Communication Features:**
+Future development includes voice and video calling capabilities, file sharing enhancements, and collaborative workspace features that expand the application beyond text-based communication.
+
+**AI Integration:**
+Planned artificial intelligence features include smart message suggestions, automated translation services, and intelligent conversation organization that enhance user productivity and communication effectiveness.
+
+**Enterprise Features:**
+Development roadmap includes enterprise-grade features such as advanced user management, compliance tools, and integration capabilities that support organizational communication needs.
+
+### Technology Evolution
+
+**Framework Updates:**
+Regular updates to underlying technologies ensure the application remains current with best practices and security standards. This includes React ecosystem updates and performance optimization improvements.
+
+**Platform Expansion:**
+Future development may include native mobile applications and desktop clients that provide platform-specific optimizations while maintaining feature parity and data synchronization.
+
+**Integration Capabilities:**
+Planned API expansions will enable third-party integrations and custom extensions that allow organizations to adapt the application to their specific workflow requirements.
+
+## License and Legal Information
+
+This project is distributed under appropriate open source licensing that encourages community contribution while protecting intellectual property rights and ensuring sustainable development practices.
+
+**Usage Rights:**
+The license grants broad usage rights for both personal and commercial applications while requiring attribution and maintaining open source contribution requirements for derivative works.
+
+**Contribution Licensing:**
+All contributions are subject to the same licensing terms, ensuring consistent legal framework and protection for all project participants and users.
+
+**Third-Party Dependencies:**
+The application includes various third-party libraries and components, each subject to their respective licenses. Complete dependency licensing information is maintained and regularly audited for compliance.
+
+---
+
+*This documentation represents the current state of the CSE Mark FE chat application as of June 2025. For the most current information, please refer to the project repository and official documentation channels.*

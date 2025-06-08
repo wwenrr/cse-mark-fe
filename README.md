@@ -813,53 +813,454 @@ Users maintain control over their data with options for export, deletion, and ac
 ### Application Interface Mockups
 
 **Main Chat Interface Overview:**
-![Main Chat Interface](docs/chat_interface.png)
-
-*This illustration demonstrates the complete chat interface layout including the left sidebar navigation, main conversation area, message input section, and header with user controls. The image showcases the glassmorphism design elements, responsive layout adaptation, and overall visual hierarchy that guides user attention through the interface naturally.*
+```
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ 🏠 CSE Mark Chat                   🔍 Search        👤 User ▼    ⚙️  🔔    │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ 📋 Sidebar    │                    Chat Area                                     │
+│ ┌───────────┐ │ ┌─────────────────────────────────────────────────────────────┐ │
+│ │ 💬 Chat 1 │ │ │ 👤 Alice: Hello! How are you doing today?        10:30 AM │ │
+│ │ 💬 Chat 2 │ │ │                                                             │ │
+│ │ 💬 Chat 3 │ │ │ 👨 You: I'm doing great! Just working on the new feature   │ │
+│ │ 💬 Chat 4 │ │ │                                                   10:32 AM │ │
+│ │ 💬 Chat 5 │ │ │                                                             │ │
+│ │           │ │ │ 👤 Alice: That sounds exciting! Can you tell me more?      │ │
+│ │ + New     │ │ │                                                   10:35 AM │ │
+│ │   Chat    │ │ │                                                             │ │
+│ │           │ │ │ 👨 You: ✏️ typing...                                        │ │
+│ │🔍 Search  │ │ │                                                             │ │
+│ │Chats      │ │ │                                                             │ │
+│ └───────────┘ │ └─────────────────────────────────────────────────────────────┘ │
+│               │ ┌─────────────────────────────────────────────────────────────┐ │
+│               │ │ 💬 Type your message...               📎 📷 😊 ➤         │ │
+│               │ └─────────────────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────────────────────────────────┘
+```
+*This layout demonstrates the complete chat interface with left sidebar navigation (conversation list, search), main conversation area (message history with timestamps), and bottom input section (message composition with attachment and emoji options). The glassmorphism design creates depth through layered transparency effects.*
 
 **Mobile Interface Adaptation:**
-![Mobile Chat Interface](docs/mobile_chat_interface.png)
+```
+📱 Mobile Layout (≤768px)
+┌─────────────────────────┐
+│ ☰ CSE Chat    🔔 👤   │
+├─────────────────────────┤
+│                         │
+│ 👤 Alice: Hello! How    │
+│    are you doing?       │
+│                10:30 AM │
+│                         │
+│ 👨 You: I'm doing great!│
+│    Just working on new  │
+│    feature     10:32 AM │
+│                         │
+│ 👤 Alice: That sounds   │
+│    exciting!   10:35 AM │
+│                         │
+│ 👨 You: ✏️ typing...     │
+│                         │
+├─────────────────────────┤
+│ 💬 Message... 📎😊 ➤  │
+└─────────────────────────┘
 
-*This mockup shows how the interface adapts for mobile devices, featuring collapsible navigation, touch-optimized input areas, and streamlined layouts that prioritize content while maintaining full functionality. The illustration demonstrates gesture-based navigation and mobile-specific interaction patterns.*
+Collapsed Sidebar:
+┌─────────────────────────┐
+│ ← Chat List   🔔 👤   │
+├─────────────────────────┤
+│ 💬 Alice Johnson       │
+│ 💬 Team Project        │
+│ 💬 Customer Support    │
+│ 💬 Design Review       │
+│ + New Conversation     │
+├─────────────────────────┤
+│ 🔍 Search conversations│
+└─────────────────────────┘
+```
+*Mobile interface features collapsible navigation (hamburger menu), full-width messages, touch-optimized input controls, and gesture-based navigation between conversations.*
 
 **User Authentication Flow:**
-![Authentication Process](docs/auth_flow_diagram.png)
+```
+Authentication Process Flow:
 
-*A comprehensive flow diagram illustrating the complete user authentication journey from initial login through session management. The diagram shows OAuth integration, token management, and security validation steps that occur transparently during user sessions.*
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│   Landing   │    │    Login    │    │   OAuth     │    │ Dashboard   │
+│    Page     ├───▶│   Screen    ├───▶│  Provider   ├───▶│   (Chat)    │
+│             │    │             │    │ (Google)    │    │             │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+       │                  │                  │                  │
+       ▼                  ▼                  ▼                  ▼
+  • Auto-detect      • Email/Pass      • OAuth 2.0       • JWT Token
+  • Guest access     • Google SSO      • PKCE Flow       • Session mgmt
+  • Language         • Remember me     • Scope perms     • Profile data
+                     • Validation      • Redirect        • Auto-refresh
+
+Security Validation:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Token Check │ NO │   Refresh   │ NO │   Logout    │
+│   Valid?    ├───▶│   Token?    ├───▶│  Redirect   │
+└─────┬───────┘    └─────────────┘    └─────────────┘
+      │ YES
+      ▼
+┌─────────────┐
+│  Continue   │
+│  Session    │
+└─────────────┘
+```
+*Comprehensive authentication journey from initial access through secure session management, showing OAuth integration, token validation, and automatic session handling.*
 
 ### Architecture and Technical Diagrams
 
 **System Architecture Overview:**
-![System Architecture](docs/system_architecture.png)
+```
+CSE Mark FE - Application Architecture
 
-*This technical diagram illustrates the complete application architecture including frontend components, state management flow, API integration points, and external service connections. The diagram shows how different system layers interact and data flows through the application.*
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│                              Frontend Layer                                     │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ 🖥️  Presentation Layer                                                         │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                │
+│ │   Header    │ │  Sidebar    │ │    Chat     │ │    Input    │                │
+│ │ Components  │ │ Navigation  │ │  Messages   │ │ Container   │                │
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ 🧠 Business Logic Layer                                                        │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                │
+│ │ Chat Store  │ │ User Store  │ │Custom Hooks │ │ Utils/      │                │
+│ │ (Zustand)   │ │ (Persist)   │ │ (Reactive)  │ │ Helpers     │                │
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ 🔌 Service Layer                                                               │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                │
+│ │   Auth      │ │    Chat     │ │     API     │ │ WebSocket   │                │
+│ │  Service    │ │   Service   │ │   Client    │ │  Manager    │                │
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘                │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ 🌐 External Integrations                                                       │
+│ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐                │
+│ │  Backend    │ │   Google    │ │  Storage    │ │    CDN      │                │
+│ │    API      │ │   OAuth     │ │ (Browser)   │ │  Assets     │                │
+│ └─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘                │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+Data Flow Direction:
+User Input → Components → Stores → Services → External APIs → Response Processing
+```
+*This architecture shows the layered approach with clear separation between presentation (React components), business logic (stores and hooks), service integration (API clients), and external dependencies.*
 
 **Component Relationship Diagram:**
-![Component Structure](docs/component_relationships.png)
+```
+React Component Hierarchy & Relationships
 
-*A detailed visualization of how React components are organized and interact within the application. The diagram shows parent-child relationships, prop flow, and shared state management patterns that create the cohesive user interface.*
+App.tsx (Root)
+├── Router
+│   ├── Home Page
+│   │   └── Landing Components
+│   └── Chat Page
+│       ├── Header
+│       │   ├── Navigation Controls
+│       │   ├── User Dropdown
+│       │   │   ├── Profile Menu
+│       │   │   ├── Settings
+│       │   │   └── Logout
+│       │   └── Notifications
+│       ├── Left Sidebar
+│       │   ├── Conversation List
+│       │   │   └── Conversation Item
+│       │   ├── Search Bar
+│       │   └── New Chat Button
+│       ├── Chat Area
+│       │   ├── Message List
+│       │   │   └── Message Component
+│       │   │       ├── Avatar
+│       │   │       ├── Content
+│       │   │       └── Timestamp
+│       │   └── Typing Indicator
+│       └── Input Container
+│           ├── Text Input
+│           ├── Attachment Button
+│           ├── Emoji Picker
+│           └── Send Button
+
+State Management Flow:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Chat Store  │◄──►│ Components  │◄──►│ User Store  │
+│             │    │             │    │             │
+│ • Messages  │    │ • UI State  │    │ • Auth      │
+│ • Convos    │    │ • Events    │    │ • Profile   │
+│ • Status    │    │ • Render    │    │ • Prefs     │
+└─────────────┘    └─────────────┘    └─────────────┘
+
+Custom Hooks Integration:
+useResponsive() ──► Responsive behavior
+useSidebar() ────► Sidebar state
+useTranslation() ► i18n support
+useParams() ─────► URL parameters
+```
+*Visual representation of component hierarchy showing parent-child relationships, state flow between stores and components, and custom hooks integration.*
 
 **Data Flow Architecture:**
-![Data Flow Diagram](docs/data_flow_architecture.png)
+```
+Complete Data Lifecycle in Chat Application
 
-*This illustration maps how information moves through the application from user interactions through state management to API communications and back to interface updates. The diagram helps understand the complete data lifecycle within the chat application.*
+User Interaction Flow:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ User Types  │───▶│ Input Comp  │───▶│ Chat Store  │───▶│ API Service │
+│ Message     │    │ Validates   │    │ Optimistic │    │ HTTP POST   │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+                           │                 │                   │
+                           ▼                 ▼                   ▼
+                    ┌─────────────┐  ┌─────────────┐    ┌─────────────┐
+                    │ UI Updates  │  │ State Mgmt  │    │ Server DB   │
+                    │ Immediately │  │ Persists    │    │ Stores Msg  │
+                    └─────────────┘  └─────────────┘    └─────────────┘
+
+Response Processing:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ Server      │───▶│ API Client  │───▶│ Store       │───▶│ Components  │
+│ Response    │    │ Processes   │    │ Updates     │    │ Re-render   │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+
+Real-time Updates (WebSocket):
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ WebSocket   │───▶│ Event       │───▶│ Store       │
+│ Message     │    │ Handler     │    │ Direct      │
+└─────────────┘    └─────────────┘    └─────────────┘
+                                              │
+                                              ▼
+                                     ┌─────────────┐
+                                     │ Auto UI     │
+                                     │ Update      │
+                                     └─────────────┘
+
+Error Handling Flow:
+┌─────────────┐    ┌─────────────┐    ┌─────────────┐    ┌─────────────┐
+│ API Error   │───▶│ Error       │───▶│ Store Error │───▶│ User        │
+│ Occurs      │    │ Boundary    │    │ State       │    │ Feedback    │
+└─────────────┘    └─────────────┘    └─────────────┘    └─────────────┘
+       │                                      │
+       ▼                                      ▼
+┌─────────────┐                      ┌─────────────┐
+│ Retry       │                      │ Toast       │
+│ Logic       │                      │ Notification│
+└─────────────┘                      └─────────────┘
+```
+*Comprehensive data flow showing user interactions, optimistic updates, server communication, real-time messaging, and error handling throughout the application.*
 
 ### User Experience Journey Maps
 
 **New User Onboarding Flow:**
-![Onboarding Journey](docs/user_onboarding_flow.png)
+```
+User Onboarding Journey (First-Time Experience)
 
-*A step-by-step visualization of the new user experience from first visit through full application competency. The journey map identifies key touchpoints, potential friction areas, and success metrics that guide user experience optimization.*
+Step 1: Landing & Registration
+┌─────────────────────────────────────────────────────────────────────┐
+│ 🌟 Welcome to CSE Mark Chat                                        │
+│ ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                  │
+│ │   📧        │  │     🔐      │  │     ⚡      │                  │
+│ │ Quick Start │  │   Secure    │  │   Modern    │                  │
+│ │   Setup     │  │ Messaging   │  │ Interface   │                  │
+│ └─────────────┘  └─────────────┘  └─────────────┘                  │
+│                                                                     │
+│ [🚀 Get Started] [🔍 Learn More] [👥 About Us]                    │
+└─────────────────────────────────────────────────────────────────────┘
+           │
+           ▼
+Step 2: Authentication Choice
+┌─────────────────────────────────────────────────────────────────────┐
+│ Choose Your Sign-In Method                                          │
+│                                                                     │
+│ ┌─────────────────────────────────┐                                 │
+│ │ 🔴 Continue with Google        │ ← Recommended (Quick)           │
+│ └─────────────────────────────────┘                                 │
+│                                                                     │
+│ ┌─────────────────────────────────┐                                 │
+│ │ 📧 Email & Password            │ ← Traditional Method            │
+│ └─────────────────────────────────┘                                 │
+│                                                                     │
+│ 👤 Guest Mode Available (Limited Features)                         │
+└─────────────────────────────────────────────────────────────────────┘
+           │
+           ▼
+Step 3: Profile Setup (30 seconds)
+┌─────────────────────────────────────────────────────────────────────┐
+│ Complete Your Profile                                   [2/3] ███░  │
+│                                                                     │
+│ Display Name: [John Doe          ]                                 │
+│ Language:     [🇺🇸 English ▼    ]                                 │
+│ Theme:        [🌙 Dark  ⚪ Light ]                                 │
+│                                                                     │
+│ 🔔 Enable notifications? [Yes] [Later]                             │
+│ 📱 Mobile app available for better experience                      │
+│                                                                     │
+│ [⬅️ Back] [Continue ➡️] [Skip for now]                             │
+└─────────────────────────────────────────────────────────────────────┘
+           │
+           ▼
+Step 4: First Chat Experience
+┌─────────────────────────────────────────────────────────────────────┐
+│ 🎉 Welcome, John! Let's start your first conversation              │
+│                                                                     │
+│ 💡 Tip: Click "New Chat" to start a conversation                   │
+│ 💡 Use @ to mention users in group chats                           │
+│ 💡 Press Ctrl+Enter to send messages quickly                       │
+│                                                                     │
+│ [🤖 Chat with Assistant] [👥 Find Contacts] [📚 Help Center]       │
+└─────────────────────────────────────────────────────────────────────┘
+
+User Success Metrics:
+• Account creation: < 2 minutes
+• First message sent: < 5 minutes  
+• Feature discovery: 3-5 key features in first session
+• Retention: Return within 24 hours
+```
+*Step-by-step user journey from landing page through profile setup and first conversation, designed for maximum conversion and minimal friction.*
 
 **Message Sending Workflow:**
-![Message Flow Process](docs/message_sending_workflow.png)
+```
+Complete Message Sending Experience
 
-*This detailed process diagram shows the complete message sending experience including input validation, transmission states, delivery confirmation, and error handling. The workflow demonstrates how the application maintains user confidence throughout the communication process.*
+Phase 1: Message Composition
+┌─────────────────────────────────────────────────────────────────────┐
+│ Input Container State: [READY]                                      │
+│ ┌─────────────────────────────────────────────────────────────────┐ │
+│ │ 💬 Type your message here...                                    │ │
+│ │                                          📎 📷 😊 [Send] │ │
+│ └─────────────────────────────────────────────────────────────────┘ │
+│                                                                     │
+│ Real-time Features:                                                 │
+│ • Character count (0/5000)                                         │
+│ • Typing indicator to others                                       │
+│ • Smart emoji suggestions                                          │
+│ • Auto-save draft every 2 seconds                                  │
+└─────────────────────────────────────────────────────────────────────┘
+           │ User presses Enter or Send
+           ▼
+Phase 2: Optimistic UI Update
+┌─────────────────────────────────────────────────────────────────────┐
+│ Message List Updates IMMEDIATELY:                                   │
+│                                                                     │
+│ 👤 Alice: How's the project going?                        2:30 PM  │
+│                                                                     │
+│ 👨 You: Great! Just finished the chat feature     🕐 Sending...    │
+│     ↳ Status: Optimistic (not yet confirmed)                      │
+│                                                                     │
+│ ✅ User sees immediate feedback                                     │
+│ ✅ Input cleared and ready for next message                        │
+│ ✅ Auto-scroll to show new message                                 │
+└─────────────────────────────────────────────────────────────────────┘
+           │ Parallel: API call to server
+           ▼
+Phase 3: Server Processing & Confirmation
+┌─────────────────────────────────────────────────────────────────────┐
+│ Backend Processing:                                                 │
+│ 1. Validate message content ✓                                      │
+│ 2. Check user permissions ✓                                        │
+│ 3. Store in database ✓                                             │
+│ 4. Broadcast to recipients ✓                                       │
+│ 5. Return confirmation ✓                                           │
+│                                                                     │
+│ Updated UI:                                                         │
+│ 👨 You: Great! Just finished the chat feature     ✅ Sent 2:31 PM  │
+│     ↳ Status: Delivered (ID: msg_12345)                            │
+└─────────────────────────────────────────────────────────────────────┘
+           │
+           ▼
+Phase 4: Real-time Delivery & Read Receipts
+┌─────────────────────────────────────────────────────────────────────┐
+│ Recipient Experience:                                               │
+│ • Instant notification (if enabled)                                │
+│ • Message appears in their chat                                    │
+│ • Typing indicator disappears                                      │
+│                                                                     │
+│ Sender Feedback:                                                    │
+│ 👨 You: Great! Just finished the chat feature     ✅ Read 2:32 PM  │
+│     ↳ Alice read the message                                       │
+│                                                                     │
+│ Error Handling (if occurs):                                        │
+│ 👨 You: Great! Just finished...     ❌ Failed [Retry] [Delete]     │
+│     ↳ Connection error - Click retry to resend                     │
+└─────────────────────────────────────────────────────────────────────┘
+
+Performance Metrics:
+• UI Response: < 50ms (optimistic update)
+• Server Round-trip: < 500ms (typical)
+• Error Recovery: Automatic retry 3x
+• User Satisfaction: 95%+ delivery success
+```
+*Detailed message flow showing optimistic updates, server processing, delivery confirmation, and error handling for smooth user experience.*
 
 **Responsive Design Breakpoints:**
-![Responsive Design Guide](docs/responsive_design_breakpoints.png)
+```
+Responsive Design System - Multi-Device Adaptation
 
-*Visual documentation of how the interface adapts across different screen sizes and orientations. The guide shows specific breakpoints, layout transformations, and feature availability changes that occur as users switch between devices.*
+Desktop (≥1200px) - Full Feature Layout:
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ Header: Full navigation + Search + User controls             (Height: 64px)     │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ ├─Sidebar(300px)─┤├──────────── Main Chat Area ─────────────┤├─Info(250px)─┤   │
+│ │ • Conversation  ││ • Message History                        ││ • User Info │   │
+│ │   List (full)   ││ • Rich formatting                        ││ • Settings  │   │
+│ │ • Search        ││ • Inline media                           ││ • Files     │   │
+│ │ • Folders       ││ • Message reactions                      ││ • Members   │   │
+│ │ • Settings      ││ • Thread views                           ││ • Apps      │   │
+│ └─────────────────┘└─────────────────────────────────────────┘└─────────────┘   │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+Tablet (768px - 1199px) - Compact Layout:
+┌─────────────────────────────────────────────────────────────────────────────────┐
+│ Header: Condensed navigation + Search                        (Height: 56px)     │
+├─────────────────────────────────────────────────────────────────────────────────┤
+│ ├─Sidebar(250px)─┤├──────────── Main Chat Area ─────────────────────────┤       │
+│ │ • Compact list  ││ • Message History                                    │       │
+│ │ • Quick search  ││ • Basic formatting                                   │       │
+│ │ • Essentials    ││ • Image previews                                     │       │
+│ │   only          ││ • Touch optimized                                    │       │
+│ │                 ││ • Swipe gestures                                     │       │
+│ └─────────────────┘└─────────────────────────────────────────────────────┘       │
+└─────────────────────────────────────────────────────────────────────────────────┘
+
+Mobile (≤767px) - Single Column Stack:
+┌─────────────────────────────┐
+│ ☰ App Title      🔔 👤    │ ← Header (48px)
+├─────────────────────────────┤
+│                             │
+│     Full Width Chat         │ ← Main content
+│   • Messages stack          │
+│   • Large touch targets     │
+│   • Optimized keyboard      │
+│   • Gesture navigation      │
+│   • Bottom input always     │
+│     visible                 │
+│                             │
+├─────────────────────────────┤
+│ 💬 Message input area      │ ← Input (auto-expand)
+└─────────────────────────────┘
+
+Sidebar becomes overlay:
+┌─────────────────────────────┐
+│ ← Conversations    🔔 👤   │
+├─────────────────────────────┤
+│ 💬 Alice Johnson          │
+│ 💬 Team Project           │
+│ 💬 Support Chat           │
+│ + New Conversation         │
+├─────────────────────────────┤
+│ 🔍 Search all chats       │
+└─────────────────────────────┘
+
+Breakpoint Specifications:
+• Mobile: 320px - 767px
+• Tablet: 768px - 1199px  
+• Desktop: 1200px+
+• Large Desktop: 1600px+
+
+Adaptation Features:
+• Fluid typography (clamp values)
+• Flexible grid systems
+• Progressive enhancement
+• Touch-first interactions
+• Performance optimization per device
+```
+*Comprehensive responsive design guide showing how interface adapts across devices with specific breakpoints, layout changes, and interaction optimizations.*
 
 ## Contributing Guidelines
 

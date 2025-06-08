@@ -4,7 +4,7 @@ import { icon } from "@/core/constants/img.constants"
 import Tippy from '@tippyjs/react'
 import { toast } from 'react-toastify';
 import 'tippy.js/dist/tippy.css'
-
+import { useUserStore } from '@/core/store/user.store';
 import { cookieConfigConstant } from '@/core/constants/config.constants';
 import cookieHelper from '@/core/helpers/cookie.helper';
 import { mockVerifyCode } from "@/core/services/api/auth/auth.api-service";
@@ -54,7 +54,7 @@ const useScreenSize = () => {
 
 const useHomePage = (): UseHomePageReturn => {
   const { width } = useScreenSize()
-  
+  const { setUser } = useUserStore()
   const isMobile = width <= 768
   const isSmallMobile = width <= 480
   let loginToastId: string | number | undefined;
@@ -90,6 +90,12 @@ const useHomePage = (): UseHomePageReturn => {
 
     cookieHelper.setCookie(cookieConfigConstant.mockIdToken.name, res.id_token, {
       path: cookieConfigConstant.mockIdToken.path,
+    });
+
+    setUser({
+      name: 'MK',
+      email: 'qscvdefb@gmail.com',
+      picture: 'https://lh3.googleusercontent.com/a/ACg8ocImvdcQGu_U9Ck2Mt4n0D7W2FoDJcGZKMJ4KxJaBUWPMYmBnII=s96-c'
     });
 
     window.location.href = '/chat?mock=true';

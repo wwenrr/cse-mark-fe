@@ -1,6 +1,7 @@
 import { useParams } from "@/core/hooks/useParams";
 import MockChat from "./_mock";
 
+
 export default function Chat() {
   const { getQuery } = useParams()
 

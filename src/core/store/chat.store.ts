@@ -76,7 +76,11 @@ export const useChatStore = create<ChatState>()(
 
             let newList = addToUserList(get().messages, newUserMessage);
             set({ messages: newList });
-            set({ filteredMessages: getMsgFromKey(userChat.content.split(' ')[0], newList) });
+            const firstFilteredMessage = get().filteredMessages[0];
+            const firstWord = firstFilteredMessage && firstFilteredMessage.content
+                ? firstFilteredMessage.content.split(' ')[0]
+                : '';
+            set({ filteredMessages: getMsgFromKey(firstWord, newList) });
             set({ keyList: getkeyList(newList) });
 
             if (isMock) {

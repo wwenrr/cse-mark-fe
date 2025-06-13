@@ -8,6 +8,7 @@ import { useUserStore } from '@/core/store/user.store';
 import { cookieConfigConstant } from '@/core/constants/config.constants';
 import cookieHelper from '@/core/helpers/cookie.helper';
 import { mockVerifyCode } from "@/core/services/api/auth/auth.api-service";
+import {GoogleOauth2Helper} from '@/core/helpers/googleOauth2.helper';
 
 // Toast styles matching website theme
 const toastStyles = {
@@ -64,22 +65,24 @@ const useHomePage = (): UseHomePageReturn => {
     if (loginToastId !== undefined && toast.isActive(loginToastId)) {
       return;
     }
-    
-    loginToastId = toast.warning(
-      <div style={toastStyles.content}>
-        <span>Chức năng đăng nhập chưa được phát triển</span>
-      </div>,
-      {
-        position: 'top-right',
-        autoClose: 3000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: false,
-        style: toastStyles.container,
-        className: 'custom-toast',
-      }
-    );
+
+    window.location.href = GoogleOauth2Helper.getGoogleLoginUrl();
+
+    // loginToastId = toast.warning(
+    //   <div style={toastStyles.content}>
+    //     <span>Chức năng đăng nhập chưa được phát triển</span>
+    //   </div>,
+    //   {
+    //     position: 'top-right',
+    //     autoClose: 3000,
+    //     hideProgressBar: true,
+    //     closeOnClick: true,
+    //     pauseOnHover: true,
+    //     draggable: false,
+    //     style: toastStyles.container,
+    //     className: 'custom-toast',
+    //   }
+    // );
   };
   const handleMockTest = async () => {
     var res = await mockVerifyCode.authenticate({"code": "123456"});
